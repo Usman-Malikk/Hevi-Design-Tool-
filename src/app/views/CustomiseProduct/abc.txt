@@ -1,0 +1,456 @@
+<Moveable
+                                        target={document.querySelector(
+                                          `.Design${Design.uniqueID}`
+                                        )}
+                                        container={null}
+                                        origin={true}
+                                        /* Resize event edges */
+                                        edge={false}
+                                        /* draggable */
+                                        draggable={true}
+                                        throttleDrag={0}
+                                        onDragStart={({
+                                          target,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log("onDragStart", target);
+                                        }}
+                                        onDrag={({
+                                          target,
+                                          beforeDelta,
+                                          beforeDist,
+                                          left,
+                                          top,
+                                          right,
+                                          bottom,
+                                          delta,
+                                          dist,
+                                          transform,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log(
+                                            "onDrag left, top",
+                                            left,
+                                            top
+                                          );
+                                          // target!.style.left = `${left}px`;
+                                          // target!.style.top = `${top}px`;
+                                          console.log("onDrag translate", dist);
+                                          target.style.transform = transform;
+                                        }}
+                                        onDragEnd={({
+                                          target,
+                                          isDrag,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log(
+                                            "onDragEnd",
+                                            target,
+                                            isDrag
+                                          );
+                                        }}
+                                        /* When resize or scale, keeps a ratio of the width, height. */
+                                        keepRatio={true}
+                                        /* resizable*/
+                                        /* Only one of resizable, scalable, warpable can be used. */
+                                        resizable={true}
+                                        throttleResize={0}
+                                        onResizeStart={({
+                                          target,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log("onResizeStart", target);
+                                        }}
+                                        onResize={({
+                                          target,
+                                          width,
+                                          height,
+                                          dist,
+                                          delta,
+                                          direction,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log("onResize", target);
+                                          delta[0] &&
+                                            (target.style.width = `${width}px`);
+                                          delta[1] &&
+                                            (target.style.height = `${height}px`);
+                                        }}
+                                        onResizeEnd={({
+                                          target,
+                                          isDrag,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log(
+                                            "onResizeEnd",
+                                            target,
+                                            isDrag
+                                          );
+                                        }}
+                                        /* scalable */
+                                        /* Only one of resizable, scalable, warpable can be used. */
+                                        scalable={true}
+                                        throttleScale={0}
+                                        onScaleStart={({
+                                          target,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log("onScaleStart", target);
+                                        }}
+                                        onScale={({
+                                          target,
+                                          scale,
+                                          dist,
+                                          delta,
+                                          transform,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log("onScale scale", scale);
+                                          target.style.transform = transform;
+                                        }}
+                                        onScaleEnd={({
+                                          target,
+                                          isDrag,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log(
+                                            "onScaleEnd",
+                                            target,
+                                            isDrag
+                                          );
+                                        }}
+                                        /* rotatable */
+                                        rotatable={true}
+                                        throttleRotate={0}
+                                        onRotateStart={({
+                                          target,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log("onRotateStart", target);
+                                        }}
+                                        onRotate={({
+                                          target,
+                                          delta,
+                                          dist,
+                                          transform,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log("onRotate", dist);
+                                          target.style.transform = transform;
+                                        }}
+                                        onRotateEnd={({
+                                          target,
+                                          isDrag,
+                                          clientX,
+                                          clientY,
+                                        }) => {
+                                          console.log(
+                                            "onRotateEnd",
+                                            target,
+                                            isDrag
+                                          );
+                                        }}
+                                        // Enabling pinchable lets you use events that
+                                        // can be used in draggable, resizable, scalable, and rotateable.
+                                       
+                                      />
+
+
+
+
+
+
+
+
+
+====================================Movable New Way==============================
+ {
+                                        (moveable = new Moveable(
+                                          document.getElementById(
+                                            "RotatableBox"
+                                          ),
+                                          {
+                                            target: document.querySelector(
+                                              `.Design${Design.uniqueID}`
+                                            ),
+                                            // If the container is null, the position is fixed. (default: parentElement(document.body))
+                                            container:
+                                              document.getElementById(
+                                                "RotatableBox"
+                                              ),
+                                            draggable: true,
+                                            rotatable: true,
+                                            hideDefaultLines: true,
+                                            // warpable: true,
+                                            // Enabling pinchable lets you use events that
+                                            // can be used in draggable, resizable, scalable, and rotateable.
+                                            // pinchable: true, // ["resizable", "scalable", "rotatable"]
+                                            // origin: true,
+
+                                            keepRatio: true,
+                                          }
+                                        ))
+                                      }
+
+                                      {moveable
+                                        .on(
+                                          "dragStart",
+                                          ({ target, clientX, clientY }) => {}
+                                        )
+                                        .on(
+                                          "drag",
+                                          ({
+                                            hideDefaultLines,
+                                            target,
+                                            transform,
+                                            left,
+                                            top,
+                                            right,
+                                            bottom,
+                                            beforeDelta,
+                                            beforeDist,
+                                            delta,
+                                            dist,
+                                            clientX,
+                                            clientY,
+                                          }) => {
+                                            target.style.left = `${left}px`;
+                                            target.style.top = `${top}px`;
+                                            // target!.style.transform = transform;
+                                          }
+                                        )
+                                        .on(
+                                          "dragEnd",
+                                          ({
+                                            target,
+                                            isDrag,
+                                            clientX,
+                                            clientY,
+                                            hideDefaultLines,
+                                            left,
+                                            top,
+                                          }) => {
+                                            //  Updated Design For Position
+                                            console.log(
+                                              "🚀 ~ file: C_product.js:392 ~ HandleDesignMovement ~ Design.rotate",
+                                              Design.rotate
+                                            );
+                                            if (
+                                              Design.category_name ===
+                                              "HEVI Design"
+                                            ) {
+                                              const DesignObj = {
+                                                uniqueID: Design.uniqueID,
+                                                sku: Design.sku,
+                                                id: Design.id,
+                                                category_id: Design.category_id,
+                                                category_name:
+                                                  Design.category_name,
+                                                subcategory_id:
+                                                  Design.subcategory_id,
+                                                subcategory_name:
+                                                  Design.subcategory_name,
+                                                image: Design.image,
+                                                price: Design.price,
+                                                rotate: Design.rotate,
+                                                side: Design.side,
+                                                yaxis: target.style.top,
+                                                xaxis: target.style.left,
+                                              };
+
+                                              dispatch(updateDesign(DesignObj));
+                                            }
+                                            if (
+                                              Design.category_name ===
+                                              "Monograms"
+                                            ) {
+                                              const DesignObj = {
+                                                value: Design.value,
+                                                uniqueID: Design.uniqueID,
+                                                sku: Design.sku,
+                                                id: Design.id,
+                                                category_id: Design.category_id,
+                                                category_name:
+                                                  Design.category_name,
+                                                subcategory_id:
+                                                  Design.subcategory_id,
+                                                subcategory_name:
+                                                  Design.subcategory_name,
+                                                image: Design.image,
+                                                price: Design.price,
+                                                rotate: Design.rotate,
+                                                side: Design.side,
+                                                yaxis: target.style.top,
+                                                xaxis: target.style.left,
+                                                color: Design.color,
+                                              };
+
+                                              dispatch(
+                                                updateTextData(DesignObj)
+                                              );
+                                            }
+                                          }
+                                        )}
+                                      {moveable
+                                        .on(
+                                          "rotateStart",
+                                          ({ target, clientX, clientY }) => {}
+                                        )
+                                        .on(
+                                          "rotate",
+                                          ({
+                                            target,
+                                            beforeDelta,
+                                            delta,
+                                            dist,
+                                            transform,
+                                            clientX,
+                                            clientY,
+                                          }) => {
+                                            target.style.transform = transform;
+                                          }
+                                        )
+                                        .on(
+                                          "rotateEnd",
+                                          ({
+                                            target,
+                                            isDrag,
+                                            clientX,
+                                            clientY,
+                                          }) => {
+                                            console.log(
+                                              "🚀 ~ file: C_product.js:463 ~ .on ~ target.style.transform",
+                                              target.style.transform
+                                            );
+                                            if (
+                                              Design.category_name ===
+                                              "HEVI Design"
+                                            ) {
+                                              const DesignObj = {
+                                                uniqueID: Design.uniqueID,
+                                                sku: Design.sku,
+                                                id: Design.id,
+                                                category_id: Design.category_id,
+                                                category_name:
+                                                  Design.category_name,
+                                                subcategory_id:
+                                                  Design.subcategory_id,
+                                                subcategory_name:
+                                                  Design.subcategory_name,
+                                                image: Design.image,
+                                                price: Design.price,
+                                                side: Design.side,
+                                                yaxis: target.style.top,
+                                                xaxis: target.style.left,
+                                                rotate: target.style.transform,
+                                              };
+                                              dispatch(updateDesign(DesignObj));
+                                            } else if (
+                                              Design.category_name ===
+                                              "Monograms"
+                                            ) {
+                                              const TextObj = {
+                                                uniqueID: Design.uniqueID,
+                                                value: Design.value,
+                                                sku: Design.sku,
+                                                id: Design.id,
+                                                category_id: Design.category_id,
+                                                category_name:
+                                                  Design.category_name,
+                                                subcategory_id:
+                                                  Design.subcategory_id,
+                                                subcategory_name:
+                                                  Design.subcategory_name,
+                                                image: Design.image,
+                                                price: Design.price,
+                                                side: Design.side,
+                                                yaxis: target.style.top,
+                                                xaxis: target.style.left,
+                                                rotate: target.style.transform,
+                                                color: Design.color,
+                                              };
+                                              dispatch(updateTextData(TextObj));
+                                            }
+                                          }
+                                        )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
